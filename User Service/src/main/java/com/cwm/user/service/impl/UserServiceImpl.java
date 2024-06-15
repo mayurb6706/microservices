@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.cwm.user.entity.User;
+import com.cwm.user.exception.UserDetailsNotFoundException;
 import com.cwm.user.repository.UserRepository;
 import com.cwm.user.service.UserService;
 
@@ -25,7 +26,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User getUserById(Long id) {
-		User user=this.userRepo.findById(id).orElseThrow();
+		User user=this.userRepo.findById(id).orElseThrow(()->
+		new UserDetailsNotFoundException("User is not exist with given parameter!"));
 		return user;
 	}
 
@@ -49,6 +51,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String removeUser(Long id) {
 		User user=this.getUserById(id);
+		this.userRepo.delete(user);
 		return "User Details Removed Sucessfully!";
 	}
 
