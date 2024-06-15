@@ -36,21 +36,26 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User updateUserDetails(Long id, User user) {
-		// TODO Auto-generated method stub
-		return null;
+	public User updateUserDetails(Long id, User newUserDetails) {
+		User user= this.getUserById(id);
+		user.setName(newUserDetails.getName());
+		user.setEmail(newUserDetails.getEmail());
+		user.setContact(newUserDetails.getContact());
+		user.setAbout(newUserDetails.getAbout());
+		this.userRepo.save(user);
+		return user;
 	}
 
 	@Override
 	public String removeUser(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		User user=this.getUserById(id);
+		return "User Details Removed Sucessfully!";
 	}
 
 	@Override
 	public User getUserByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		User user= this.userRepo.findByEmail(email);
+		return user;
 	}
 
 }
