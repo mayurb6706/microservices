@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cwm.rating.entity.Rating;
+import com.cwm.rating.model.RatingResponse;
 import com.cwm.rating.service.impl.RatingServiceImpl;
 
 @RestController
@@ -38,8 +39,8 @@ public class RatingController {
 	
 	//Get all ratings given to hotel
 	@GetMapping("/hotelid")
-	public ResponseEntity<List<Rating>> getAllRatingToHotel(@RequestParam Long hotelId){
-		List<Rating> hotelRatings= this.ratingService.getAllRatingToHotel(hotelId);
-		return new ResponseEntity<List<Rating>>(hotelRatings, HttpStatus.ACCEPTED);
+	public ResponseEntity<List<RatingResponse>> getAllRatingToHotel(@RequestParam Long hotelId){
+		List<RatingResponse> hotelRatings= this.ratingService.getAllRatingToHotel(hotelId);
+		return new ResponseEntity<List<RatingResponse>>(hotelRatings, HttpStatus.ACCEPTED);
 	}
 }

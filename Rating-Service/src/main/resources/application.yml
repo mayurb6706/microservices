@@ -15,4 +15,7 @@ spring:
     username: postgres
     password: pgAdmin
     driverClassName: org.postgresql.Driver  
-   
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true   
