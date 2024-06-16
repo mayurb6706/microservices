@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EntityScan("com.cwm.rating.entity")
 @EnableJpaRepositories("com.cwm.rating.repository")
-@EnableDiscoveryClient
 public class RatingServiceApplication {
 
 	public static void main(String[] args) {
