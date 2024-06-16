@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: API-GATEWAY
+    
+server:
+  port: 8181
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true  
+  
+      
