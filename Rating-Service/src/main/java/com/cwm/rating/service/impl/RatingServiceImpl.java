@@ -37,7 +37,7 @@ public class RatingServiceImpl  implements RatingService{
 		List<Rating> userRating= this.ratingRepo.findByUser(userId);
 		List<RatingResponse> responses= new ArrayList<>();
 		responses = userRating.stream().map(rating->{
-			HotelResponse hotel=this.template.getForObject("http://localhost:8082/api/hotel/hotel?id="+rating.getHotel(),HotelResponse.class);
+			HotelResponse hotel=this.template.getForObject("http://HOTEL-SERVICE/api/hotel/hotel?id="+rating.getHotel(),HotelResponse.class);
 				RatingResponse response=RatingResponse.builder()
 						.feedback(rating.getFeedback())
 						.hotel(hotel)
@@ -53,7 +53,7 @@ public class RatingServiceImpl  implements RatingService{
 		List<Rating> hotelRating= this.ratingRepo.findByHotel(hotelId);
 		List<RatingResponse> responses= new ArrayList<>();
 		responses=hotelRating.stream().map(rating->{
-			UserRespose user= this.template.getForObject("http://localhost:8081/api/user/id/"+rating.getUser(), UserRespose.class);
+			UserRespose user= this.template.getForObject("http://USER-SERVICE/api/user/id/"+rating.getUser(), UserRespose.class);
 			RatingResponse response= RatingResponse.builder()
 					.feedback(rating.getFeedback())
 					.rating(rating.getRating())
