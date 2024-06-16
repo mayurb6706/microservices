@@ -2,6 +2,24 @@ spring:
   application:
     name: API-GATEWAY
     
+  cloud:
+    gateway:
+      routes:   
+        - id: USER-SERVICE
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/api/user/**
+
+        - id: HOTEL-SERVICE
+          uri: lb://HOTEL-SERVICE
+          predicates:
+            - Path=/api/hotel/**
+
+        - id: RATING-SERVICE
+          uri: lb://RATING-SERVICE
+          predicates:
+            - Path=/api/rating/**     
+              
 server:
   port: 8181
 
@@ -10,4 +28,4 @@ eureka:
     fetch-registry: true
     register-with-eureka: true  
   
-      
+  
