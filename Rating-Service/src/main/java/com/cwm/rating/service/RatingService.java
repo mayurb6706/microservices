@@ -9,7 +9,7 @@ public interface RatingService {
 
 	Rating giveRating(Rating rating);
 	
-	List<Rating> getAllRatingByUser(Long userId);
+	List<RatingResponse> getAllRatingByUser(Long userId);
 	
 	List<RatingResponse> getAllRatingToHotel(Long hotelId);
 	

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.cwm.rating.entity.Rating;
+import com.cwm.rating.model.HotelResponse;
 import com.cwm.rating.model.RatingResponse;
 import com.cwm.rating.model.UserRespose;
 import com.cwm.rating.repository.RatingRepository;
@@ -32,10 +33,19 @@ public class RatingServiceImpl  implements RatingService{
 	}
 
 	@Override
-	public List<Rating> getAllRatingByUser(Long userId) {
+	public List<RatingResponse> getAllRatingByUser(Long userId) {
 		List<Rating> userRating= this.ratingRepo.findByUser(userId);
-		
-		return userRating;
+		List<RatingResponse> responses= new ArrayList<>();
+		responses = userRating.stream().map(rating->{
+			HotelResponse hotel=this.template.getForObject("http://localhost:8082/api/hotel/hotel?id="+rating.getHotel(),HotelResponse.class);
+				RatingResponse response=RatingResponse.builder()
+						.feedback(rating.getFeedback())
+						.hotel(hotel)
+						.rating(rating.getRating())
+						.build();
+				return response;
+		}).collect(Collectors.toList());
+		return responses;
 	}
 
 	@Override
@@ -46,7 +56,6 @@ public class RatingServiceImpl  implements RatingService{
 			UserRespose user= this.template.getForObject("http://localhost:8081/api/user/id/"+rating.getUser(), UserRespose.class);
 			RatingResponse response= RatingResponse.builder()
 					.feedback(rating.getFeedback())
-					.hotel(rating.getHotel())
 					.rating(rating.getRating())
 					.user(user)
 					.build();

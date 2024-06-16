@@ -1,4 +1,6 @@
-package com.cwm.rating.model;
+package com.cwm.user.model;
+
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,9 +17,7 @@ import lombok.ToString;
 @ToString
 public class RatingResponse {
 
-	
 	private int rating;
-	private HotelResponse hotel;
-	private UserRespose user;
+	private Long hotel;
 	private String feedback;
 }

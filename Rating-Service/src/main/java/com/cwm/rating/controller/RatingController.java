@@ -32,8 +32,8 @@ public class RatingController {
 	
 	//Get all rating by user id
 	@GetMapping("/userid")
-	public ResponseEntity<List<Rating>> getRatingByUser(@RequestParam("id") Long userId){
-		List<Rating> userRating= this.ratingService.getAllRatingByUser(userId);
+	public ResponseEntity<List<RatingResponse>> getRatingByUser(@RequestParam("id") Long userId){
+		List<RatingResponse> userRating= this.ratingService.getAllRatingByUser(userId);
 		return ResponseEntity.ok(userRating);
 	}
 	

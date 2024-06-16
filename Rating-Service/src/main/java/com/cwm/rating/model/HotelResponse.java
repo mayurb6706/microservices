@@ -11,13 +11,17 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @Setter
-@Builder
 @ToString
-public class RatingResponse {
+@Builder
+public class HotelResponse {
 
+	private String name;
 	
-	private int rating;
-	private HotelResponse hotel;
-	private UserRespose user;
-	private String feedback;
+	private String location;
+	
+	private String about;
+	
+	private String email;
+	
+	private Long contact;
 }
