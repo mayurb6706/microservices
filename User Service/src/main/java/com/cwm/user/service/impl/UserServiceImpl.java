@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 
 import com.cwm.user.entity.User;
 import com.cwm.user.exception.UserDetailsNotFoundException;
+import com.cwm.user.model.RatingResponse;
 import com.cwm.user.repository.UserRepository;
 import com.cwm.user.service.UserService;
+import com.cwm.user.service.external.RatingService;
 
 import lombok.AllArgsConstructor;
 
@@ -17,8 +19,9 @@ public class UserServiceImpl implements UserService {
 
 	private UserRepository userRepo;
 	
+	private RatingService ratingService;
 	
-	//Add new User
+	//Add new User 
 	@Override
 	public User addUser(User user) {
 		User newUser=this.userRepo.save(user);
@@ -29,6 +32,12 @@ public class UserServiceImpl implements UserService {
 	public User getUserById(Long id) {
 		User user=this.userRepo.findById(id).orElseThrow(()->
 		new UserDetailsNotFoundException("User is not exist with given parameter!"));
+		//get the whole user details, rating + hotel details
+		List<RatingResponse> ratingResponses= this.ratingService.getRatingByUser(id).getBody();
+		for(RatingResponse res: ratingResponses) {
+			System.out.println(res.toString());
+		}
+		user.setRatings(ratingResponses);
 		return user;
 	}
 
